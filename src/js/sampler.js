@@ -13,7 +13,8 @@ play_button.addEventListener('click', play_sound);
 
 
 function init() {
-    play_button.disabled= true;
+    play_button.disabled = true;
+    load_button.disabled = true;
     try {
         console.log("Loading Audio Context");
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -29,19 +30,43 @@ function on_error() {
     alert("Whoops!");
 }
 
+function make_new_sample() {
+    load_button.disabled = false;
+    let button = document.createElement("button");       // Create new tab
+    let node = document.createAttribute("id");          // Set tab id
+    node.value = "sample" + num_samples.toString();
+    button.setAttributeNode(node);
+    node = document.createAttribute("class");           // Set tab class
+    node.value="tab_v_links";
+    button.setAttributeNode(node);
+    node = document.createAttribute("onclick");
+    node.value = "open_vertical_tab('sample" + num_samples.toString()+ "')";
+    button.setAttributeNode(node);
+    let text = document.createTextNode("Sample " + (num_samples + 1).toString()); // Set tab text
+    button.appendChild(text);
+    let element = document.getElementById("samples");
+    element.appendChild(button);
+    open_vertical_tab("sample" + num_samples.toString());
+    num_samples++;
+
+}
+
 function sampler() {
     const url = url_box.value;
-    console.log("Loading URL", url, "into slot", num_samples);
+    console.log("Loading URL", url, "into slot", sample_num.value);
     let request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.responseType = 'arraybuffer';
     // Decode asynchronously
     request.onload = function() {
         context.decodeAudioData(request.response, function(buffer) {
-            samples.push(buffer);
-            num_samples++;
+            if (sample_num.value >= num_samples) {
+                samples.push(buffer);
+            }
+            else {
+                samples[sample_num.value] = buffer;
+            }
             play_button.disabled= false;
-            sample_num.max = (num_samples - 1).toString();
         }, on_error);
     };
     request.send();
