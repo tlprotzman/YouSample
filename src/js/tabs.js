@@ -29,10 +29,10 @@ function open_vertical_tab(tab) {
     let i, tab_content, tab_links;
 
     // Get all elements with class="tab_content" and hide them
-    tab_content = document.getElementsByClassName("tab_vertical");
-    for (i = 0; i < tab_content.length; i++) {
-        tab_content[i].style.display = "none";
-    }
+    // tab_content = document.getElementsByClassName("tab_vertical");
+    // for (i = 0; i < tab_content.length; i++) {
+    //     tab_content[i].style.display = "none";
+    // }
 
     // Get all elements with class="tab_links" and remove the class "active"
     tab_links = document.getElementsByClassName("tab_v_links");

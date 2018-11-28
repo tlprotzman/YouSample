@@ -18,20 +18,30 @@
 <hr/>
 
 <div id="sampler" class="tab_horizontal">
-    <input type="text" id="video_url" placeholder="Enter YouTube URL">
-    <button id="load_video">Load</button>
     <input type="hidden" id="clip_number">
-    <button id="play_clip">Play</button>
-    <script src="src/js/sampler.js"></script>
 
     <div id="samples" class="tab_v">
         <button class="tab_v_links" id="make_new_sample" onclick="make_new_sample()">New Sample</button>
     </div>
 
     <div id="sampler_controls" class="tab_vertical">
-        <p>Test1</p>
+        <p>Sample Controls</p>
+        <br>
+        <input type="text" id="video_url" placeholder="Enter YouTube URL">
+        <button id="load_video">Load</button>
+        <br>
+        <p>
+            Playback Rate (default=1)
+            <input type="number" value="1" id="playback_speed">
+        </p>
+        <p>
+            <button id="play_clip">Play</button>
+            <button id="stop_clip">Stop</button>
+            Loop:
+            <input type="checkbox" value="false" id="loop_sample">
+        </p>
     </div>
-
+    <script src="src/js/sampler.js"></script>
 </div>
 
 <div id="sequencer" class="tab_horizontal">

@@ -5,11 +5,16 @@ let num_samples= 0;
 const load_button = document.getElementById("load_video");
 const url_box = document.getElementById("video_url");
 const play_button = document.getElementById("play_clip");
+const stop_button = document.getElementById("stop_clip");
 const sample_num = document.getElementById("clip_number");
+const playback_rate = document.getElementById("playback_speed");
+const loop_sample = document.getElementById("loop_sample");
 
 window.addEventListener('load', init, false);
 load_button.addEventListener('click', sampler);
 play_button.addEventListener('click', play_sound);
+stop_button.addEventListener('click', stop_sound);
+
 
 
 function init() {
@@ -75,10 +80,14 @@ function sampler() {
 function play_sound() {
     console.log("Playing sound from buffer", sample_num.value);
     let source = context.createBufferSource();  // Create sound source
-    source.buffer = samples[sample_num.value];                     // Which sound to play
+    source.buffer = samples[sample_num.value];  // Which sound to play
+    source.playbackRate.value = playback_rate.value;  // How fast to play it back
+    source.loop = loop_sample.value;
     source.connect(context.destination);        // Connect to speaker
     source.start(0)                       // Start playing now
 }
 
-
+function stop_sound() {
+    source
+}
 
