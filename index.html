@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouSample</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+    <h1>YouSample</h1>
+    <hr/>
+    <div class="tab">
+        <button class="tab_links" onclick="open_tab(event, 'sampler')">Sampler</button>
+        <button class="tab_links" onclick="open_tab(event, 'sequencer')">Sequencer</button>
+        <button class="tab_links" onclick="open_tab(event, 'playback')">Playback</button>
+        <button class="tab_links" onclick="open_tab(event, 'help')">Help</button>
+        <script src="src/js/tabs.js"></script>
+    </div>
+    <hr/>
+
+    <div id="sampler" class="tab_content">
+        <input type="text" id="video_url" placeholder="Enter YouTube URL">
+        <button id="load_video">Load</button>
+        <input type="number" id="clip_number" min="0" max="0" placeholder="Sample Bank">
+        <button id="play_clip">Play</button>
+        <script src="src/js/sampler.js"></script>
+    </div>
+
+    <div id="sequencer" class="tab_content">
+        <p>Under Construction</p>
+    </div>
+
+    <div id="playback" class="tab_content">
+        <p>Under Construction</p>
+    </div>
+
+    <div id="help" class="tab_content">
+        <p>Under Construction</p>
+    </div>
+</body>
+</html>
