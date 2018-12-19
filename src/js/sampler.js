@@ -13,7 +13,28 @@ window.addEventListener('load', init, false);
 load_button.addEventListener('click', sampler);
 play_samp_button.addEventListener('click', play_sound);
 
+class Sample {
+    constructor(buffer) {
+        this.buffer = buffer;
+        this.startTime = 0;
+        this.endTime = this.buffer.length;
+        this.playbackSpeed = 1;
+    }
 
+    newSample(buffer) {
+        this.buffer = buffer;
+        this.startTime = 0;
+        this.endTime = this.buffer.length;
+    }
+
+    play(when) {
+        let source = context.createBufferSource();
+        source.buffer = this.buffer;
+        source.playbackRate.value = this.playbackSpeed;
+        source.connect(context.destination);
+        source.start(when);
+    }
+}
 
 function init() {
     play_samp_button.disabled = true;
@@ -57,7 +78,7 @@ function make_new_sample() {
 
 function sampler() {
     const url = url_box.value;
-    console.log("Loading URL", url, "into slot", sample_num.value);
+    console.log("Loading URL", url, "into slot", sample_num.value, "of", num_samples);
     let request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.responseType = 'arraybuffer';
@@ -65,11 +86,11 @@ function sampler() {
     request.onload = function() {
         context.decodeAudioData(request.response, function(buffer) {
             console.log("Loaded!");
-            if (sample_num.value >= num_samples) {
-                samples.push(buffer);
+            if (sample_num.value + 1 >= num_samples) {
+                samples.push(new Sample(buffer));
             }
             else {
-                samples[sample_num.value] = buffer;
+                samples[sample_num.value].newSample(buffer);
             }
             play_samp_button.disabled= false;
         }, on_error);
@@ -78,13 +99,10 @@ function sampler() {
 }
 
 function play_sound() {
-    console.log("Playing sound from buffer", sample_num.value);
-    let source = context.createBufferSource();  // Create sound source
-    source.buffer = samples[sample_num.value];  // Which sound to play
-    source.playbackRate.value = playback_rate.value;  // How fast to play it back
-    // source.loop = loop_sample.value;
-    source.connect(context.destination);        // Connect to speaker
-    source.start(0)                       // Start playing now
+    let bank = sample_num.value;
+    console.log("Playing sound from buffer", bank);
+    samples[bank].playbackSpeed = playback_rate.value;
+    samples[sample_num.value].play(0);
 }
 
 

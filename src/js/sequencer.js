@@ -31,7 +31,6 @@ class Tile  {
 
 function updateTile(i, j) {
     let tile = state[i][j];
-    console.log(tile.current);
     if (tile.active) {
         tile.cell.className = "clicked";
     } else if (tile.current) {
@@ -170,10 +169,11 @@ function nextNote() {
 function playPatternStepAtTime(play_time) {
     for (let i = 0; i < num_samples; i++) {
         if (state[i+1][current_step+1].active) {
-            let source = context.createBufferSource();
-            source.buffer = samples[i];
-            source.connect(context.destination);
-            source.start(play_time);
+            samples[i].play(play_time);
+            // let source = context.createBufferSource();
+            // source.buffer = samples[i];
+            // source.connect(context.destination);
+            // source.start(play_time);
         }
     }
     markCurrentNote(current_step);
