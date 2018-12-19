@@ -3,7 +3,9 @@ let samples = [];
 let num_samples= 0;
 
 const load_button = document.getElementById("load_video");
+const load_local = document.getElementById("load_local");
 const url_box = document.getElementById("video_url");
+const loc_box = document.getElementById("local_file")
 const play_samp_button = document.getElementById("play_clip");
 const sample_num = document.getElementById("clip_number");
 const playback_rate = document.getElementById("playback_speed");
@@ -15,7 +17,8 @@ const samp_stop_time = document.getElementById("samp_stop_time");
 
 
 window.addEventListener('load', init, false);
-load_button.addEventListener('click', sampler);
+load_button.addEventListener('click', function() {sampler(true);});
+load_local.addEventListener('click', function() {sampler(false);});
 play_samp_button.addEventListener('click', play_sound);
 
 window.addEventListener("beforeunload", function (e) {
@@ -143,15 +146,23 @@ function on_switch() {
     }
 }
 
-function sampler() {
-    const url = url_box.value;
-    console.log("Loading URL", url, "into slot", sample_num.value, "of", num_samples);
+function sampler(web) {
     let request = new XMLHttpRequest();
-    let mod_url = "https://cors-escape.herokuapp.com/" + url;
-    if (url.includes("http"))
-        request.open('GET', mod_url, true);
-    else
+    let url =""
+    if (web) {
+        url = url_box.value;
+        let mod_url = "https://cors-escape.herokuapp.com/" + url;
+        console.log("Loading URL", url, "into slot", sample_num.value, "of", num_samples);
+        if (url.includes("http"))
+            request.open('GET', mod_url, true);
+        else
+            request.open('GET', url, true);
+    }
+    else {
+        url = URL.createObjectURL(loc_box.files[0]);
+        console.log("Loading Local File", url, "into slot", sample_num.value, "of", num_samples);
         request.open('GET', url, true);
+    }
     request.responseType = 'arraybuffer';
     // Decode asynchronously
     request.onload = function() {

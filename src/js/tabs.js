@@ -16,7 +16,12 @@ function open_horizontal_tab(evt, tab) {
 
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tab).style.display = "block";
-    evt.currentTarget.className += " active";
+    try {
+        evt.currentTarget.className += " active";
+    }
+    catch (e) {
+        evt.className += " active";
+    }
 }
 
 
@@ -46,3 +51,7 @@ function open_vertical_tab(tab) {
     on_switch();
 
 }
+
+window.addEventListener("load", function() {
+    open_horizontal_tab(document.getElementById("helptab"), "help")
+});

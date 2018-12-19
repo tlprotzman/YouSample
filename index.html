@@ -12,7 +12,7 @@
     <button class="tab_h_links" onclick="open_horizontal_tab(event, 'sampler')">Sampler</button>
     <button class="tab_h_links" onclick="open_horizontal_tab(event, 'sequencer')">Sequencer</button>
     <button class="tab_h_links" onclick="open_horizontal_tab(event, 'playback')">Playback</button>
-    <button class="tab_h_links" onclick="open_horizontal_tab(event, 'help')">Help</button>
+    <button class="tab_h_links" id="helptab" onclick="open_horizontal_tab(event, 'help')">Help</button>
     <script src="src/js/tabs.js"></script>
 </div>
 <hr/>
@@ -29,9 +29,15 @@
     <div id="sampler_controls" class="tab_vertical">
         <p>Sample Controls</p>
         <br>
-        <input type="text" id="video_url" placeholder="Enter YouTube URL">
-        <button id="load_video">Load</button>
+        <button id="load_video">Load</button> Web Video
+        <input type="text" id="video_url" placeholder="Enter Download URL">
+
         <br>
+        <button id="load_local">Load</button> Local File
+        <input type="file" id="local_file">
+
+        <br>
+        <h3>Sample Name</h3>
         <input type="text" id="sample_name" placeholder="Enter Sample Name">
         <br>
         <div id="samp_length"></div>
@@ -92,8 +98,11 @@
         <li>Using <a href="https://www.onlinevideoconverter.com/youtube-converter" target="_blank">this</a> website, paste the youtube
             link, make sure mp4 is the selected format, and click start </li>
         <li><b>Do Not Click Download!!!</b></li>
+        <li>Click New Sample to create a new sample bank.</li>
         <li>Right click on the download link once the conversion is done, and paste this link into the sample bank
              you wish to load it in</li>
+        <li>Once samples are loaded, switch to the sequencer tab and create a pattern of the desired time
+        signature and length.</li>
     </ol>
     <h2>Best Practices</h2>
     <ol>
