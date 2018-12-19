@@ -101,3 +101,7 @@
 .sequence_grid td.clicked {
     background-color:rebeccapurple;
 }
+
+.sequence_grid td.current {
+    background-color:forestgreen;
+}

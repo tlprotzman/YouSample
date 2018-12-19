@@ -46,13 +46,16 @@
     <p>Time Signature:
         <input type="number" id="num_beats" min="1" max="16" value="4">
         <select id="beat_length", value="4">
-            <option value="2">2</option>
             <option value="4">4</option>
             <option value="8">8</option>
         </select>
-        <button onclick="makegrid()">Confirm Change</button>
+        Number of Bars: <input type="number" id="num_bars" min="1" max="4" value="1">
+        <button onclick="make_grid()">Confirm Change</button>
     </p>
-    <p>Tempo: <input type="number" id="bpm" min="1" max="240" value="100"></p>
+    <p>
+        Tempo: <input type="number" id="bpm" min="1" max="240" value="100">
+        <button onclick="update_bpm()">Update</button>
+    </p>
     <hr/>
     <button id="play_sequence">Play</button>
     <button id="stop_sequence">Stop</button>
