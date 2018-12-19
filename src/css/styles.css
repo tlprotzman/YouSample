@@ -79,3 +79,25 @@
     border-left: none;
     height: 300px;
 }
+
+.sequence_grid { margin:1em auto; border-collapse:collapse }
+.sequence_grid td {
+    cursor:pointer;
+    width:30px; height:30px;
+    border:1px solid #ccc;
+    text-align:center;
+    font-family:sans-serif; font-size:13px
+}
+
+.sequence_grid td.samp_label {
+    font-weight: bold;
+    width:100px;
+}
+
+.sequence_grid td.beat {
+    background-color:darkgrey;
+}
+
+.sequence_grid td.clicked {
+    background-color:rebeccapurple;
+}

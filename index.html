@@ -36,16 +36,31 @@
         </p>
         <p>
             <button id="play_clip">Play</button>
-            <button id="stop_clip">Stop</button>
-            Loop:
-            <input type="checkbox" value="false" id="loop_sample">
         </p>
     </div>
     <script src="src/js/sampler.js"></script>
 </div>
 
 <div id="sequencer" class="tab_horizontal">
-    <p>Under Construction</p>
+    <h1>Sequencer</h1>
+    <p>Time Signature:
+        <input type="number" id="num_beats" min="1" max="16" value="4">
+        <select id="beat_length", value="4">
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+        </select>
+        <button onclick="makegrid()">Confirm Change</button>
+    </p>
+    <p>Tempo: <input type="number" id="bpm" min="1" max="240" value="100"></p>
+    <hr/>
+    <button id="play_sequence">Play</button>
+    <button id="stop_sequence">Stop</button>
+    <hr/>
+    <div id="sequence">
+        <table id="sequence_in" class="sequence_grid"></table>
+    </div>
+    <script src="src/js/sequencer.js"></script>
 </div>
 
 <div id="playback" class="tab_horizontal">
@@ -53,7 +68,17 @@
 </div>
 
 <div id="help" class="tab_horizontal">
-    <p>Under Construction</p>
+    <h1>Instructions</h1>
+    <ol>
+        <li>Select a video from <a href="https://www.youtube.com">YouTube</a> </li>
+        <li>Using <a href="https://www.onlinevideoconverter.com/youtube-converter">this</a> website, paste the youtube
+            link, make sure mp4 is the selected format, and click start </li>
+        <li><b>Do Not Click Download!!!</b></li>
+        <li>Right click on the download link once the conversion is done, and paste this link into the sample bank
+             you wish to load it in</li>
+    </ol>
 </div>
 </body>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>-->
 </html>
+

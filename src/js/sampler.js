@@ -4,21 +4,19 @@ let num_samples= 0;
 
 const load_button = document.getElementById("load_video");
 const url_box = document.getElementById("video_url");
-const play_button = document.getElementById("play_clip");
-const stop_button = document.getElementById("stop_clip");
+const play_samp_button = document.getElementById("play_clip");
 const sample_num = document.getElementById("clip_number");
 const playback_rate = document.getElementById("playback_speed");
-const loop_sample = document.getElementById("loop_sample");
+
 
 window.addEventListener('load', init, false);
 load_button.addEventListener('click', sampler);
-play_button.addEventListener('click', play_sound);
-stop_button.addEventListener('click', stop_sound);
+play_samp_button.addEventListener('click', play_sound);
 
 
 
 function init() {
-    play_button.disabled = true;
+    play_samp_button.disabled = true;
     load_button.disabled = true;
     try {
         console.log("Loading Audio Context");
@@ -29,6 +27,7 @@ function init() {
         console.log("Audio Context Failed to Load");
         alert("Web Audio API is not supported in this browser");
     }
+    return context
 }
 
 function on_error() {
@@ -65,13 +64,14 @@ function sampler() {
     // Decode asynchronously
     request.onload = function() {
         context.decodeAudioData(request.response, function(buffer) {
+            console.log("Loaded!");
             if (sample_num.value >= num_samples) {
                 samples.push(buffer);
             }
             else {
                 samples[sample_num.value] = buffer;
             }
-            play_button.disabled= false;
+            play_samp_button.disabled= false;
         }, on_error);
     };
     request.send();
@@ -82,12 +82,11 @@ function play_sound() {
     let source = context.createBufferSource();  // Create sound source
     source.buffer = samples[sample_num.value];  // Which sound to play
     source.playbackRate.value = playback_rate.value;  // How fast to play it back
-    source.loop = loop_sample.value;
+    // source.loop = loop_sample.value;
     source.connect(context.destination);        // Connect to speaker
     source.start(0)                       // Start playing now
 }
 
-function stop_sound() {
-    source
-}
+
+
 
