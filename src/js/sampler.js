@@ -9,6 +9,9 @@ const sample_num = document.getElementById("clip_number");
 const playback_rate = document.getElementById("playback_speed");
 const reverse = document.getElementById("reverse");
 const samp_name = document.getElementById("sample_name");
+const samp_length = document.getElementById("samp_length");
+const samp_start_time = document.getElementById("samp_start_time");
+const samp_stop_time = document.getElementById("samp_stop_time");
 
 
 window.addEventListener('load', init, false);
@@ -20,7 +23,8 @@ class Sample {
         this.url = url
         this.buffer = buffer;
         this.startTime = 0;
-        this.endTime = this.buffer.length;
+        this.endTime = this.buffer.duration;
+        this.duration = this.buffer.duration;
         this.playbackSpeed = 1;
         this.reverse = false;
         this.wasReversed = false;
@@ -30,7 +34,7 @@ class Sample {
     newSample(url, buffer) {
         this.buffer = buffer;
         this.startTime = 0;
-        this.endTime = this.buffer.length;
+        this.endTime = this.buffer.duration;
         this.reverse = false;
         this.wasReversed = false;
     }
@@ -43,10 +47,11 @@ class Sample {
             Array.prototype.reverse.call( this.buffer.getChannelData(1) );
             this.wasReversed = this.reverse;
         }
+        let length = this.endTime - this.startTime;
         source.buffer = this.buffer;
         source.playbackRate.value = this.playbackSpeed;
         source.connect(context.destination);
-        source.start(when);
+        source.start(when, this.startTime, length);
     }
 }
 
@@ -67,6 +72,19 @@ function init() {
 
 function on_error() {
     alert("Whoops!");
+}
+
+function verify_min_time() {
+    if (samples.length > sample_num.value) {
+        samp_start_time.setAttribute("max", samples[sample_num.value].duration);
+    }
+}
+
+function verify_max_time() {
+    if (samples.length > sample_num.value) {
+        samp_stop_time.setAttribute("min", samp_start_time.value);
+        samp_stop_time.setAttribute("max", samples[sample_num.value].duration);
+    }
 }
 
 function make_new_sample() {
@@ -102,6 +120,12 @@ function on_switch() {
         playback_rate.value = samples[bank].playbackSpeed;
         reverse.value = samples[bank].reverse;
         samp_name.value = samples[bank].name;
+        samp_length.innerText = "Sample Length: " +samples[bank].duration.toFixed(2);
+        samp_start_time.value = 0;
+        samp_stop_time.value = samples[bank].duration;
+        reverse.value = samples[bank].reverse;
+        verify_min_time();
+        verify_max_time();
     }
     else {
         playback_rate.value = 1;
@@ -127,9 +151,11 @@ function sampler() {
             else {
                 samples[sample_num.value].newSample(url, buffer);
             }
-            play_samp_button.disabled= false;
-            samp_name.value = "sample " + samples.length.toString();
-            reverse.checked = false;
+            // play_samp_button.disabled= false;
+            samples[samples.length - 1].name = "sample " + samples.length.toString();
+            on_switch();
+            // reverse.checked = false;
+            // samp_length.innerText = "Sample Length: " + buffer.duration.toFixed(2);
         }, on_error);
     };
     request.send();
@@ -141,6 +167,8 @@ function play_sound() {
     samples[bank].playbackSpeed = playback_rate.value;
     samples[bank].reverse = reverse.checked;
     samples[bank].name = samp_name.value;
+    samples[bank].startTime = samp_start_time.value;
+    samples[bank].endTime = samp_stop_time.value;
     samples[bank].play(0);
 }
 

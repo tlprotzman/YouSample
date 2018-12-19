@@ -33,6 +33,13 @@
         <button id="load_video">Load</button>
         <br>
         <input type="text" id="sample_name" placeholder="Enter Sample Name">
+        <br>
+        <div id="samp_length"></div>
+        <br>
+        Start:
+        <input type="number" id="samp_start_time" value="0" min="0" onblur="verify_min_time()">
+        Stop:
+        <input type="number" id="samp_stop_time" value="0" min="0" onblur="verify_max_time()">
         <p>
             Playback Rate (default=1)
             <input type="number" value="1" id="playback_speed">
