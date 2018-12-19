@@ -58,17 +58,23 @@ class Sample {
             Array.prototype.reverse.call( this.buffer.getChannelData(1) );
             this.wasReversed = this.reverse;
         }
-        let length = this.endTime - this.startTime;
         source.buffer = this.buffer;
         source.playbackRate.value = this.playbackSpeed;
         source.connect(context.destination);
-        source.start(when, this.startTime, length);
+        if (this.reverse) {
+            let length = this.endTime - this.startTime;
+            source.start(when, this.duration - this.endTime, length);
+        } else {
+            let length = this.endTime - this.startTime;
+            source.start(when, this.startTime, length);
+        }
     }
 }
 
 function init() {
     play_samp_button.disabled = true;
     load_button.disabled = true;
+    load_local.disabled = true;
     try {
         console.log("Loading Audio Context");
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -103,6 +109,7 @@ function make_new_sample() {
         return;
     }
     load_button.disabled = false;
+    load_local.disabled = false;
     let button = document.createElement("button");       // Create new tab
     let node = document.createAttribute("id");          // Set tab id
     node.value = "sample" + num_samples.toString();
