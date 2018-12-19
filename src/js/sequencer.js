@@ -98,7 +98,7 @@ function make_grid() {
                 continue
             }
             if (j == 0) {
-                cell.innerHTML = "Sample " + i.toString();
+                cell.innerHTML = samples[i - 1].name;
                 cell.className = "samp_label"
             }
             else {

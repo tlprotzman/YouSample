@@ -43,5 +43,6 @@ function open_vertical_tab(tab) {
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(tab).style.display = "block";
     document.getElementById(tab).className += " active";
+    on_switch();
 
 }

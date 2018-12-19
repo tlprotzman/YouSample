@@ -17,6 +17,8 @@
 </div>
 <hr/>
 
+
+
 <div id="sampler" class="tab_horizontal">
     <input type="hidden" id="clip_number">
 
@@ -30,9 +32,12 @@
         <input type="text" id="video_url" placeholder="Enter YouTube URL">
         <button id="load_video">Load</button>
         <br>
+        <input type="text" id="sample_name" placeholder="Enter Sample Name">
         <p>
             Playback Rate (default=1)
             <input type="number" value="1" id="playback_speed">
+            Reverse:
+            <input type="checkbox" value="false" id="reverse">
         </p>
         <p>
             <button id="play_clip">Play</button>
@@ -76,8 +81,8 @@
 <div id="help" class="tab_horizontal">
     <h1>Instructions</h1>
     <ol>
-        <li>Select a video from <a href="https://www.youtube.com">YouTube</a> </li>
-        <li>Using <a href="https://www.onlinevideoconverter.com/youtube-converter">this</a> website, paste the youtube
+        <li>Select a video from <a href="https://www.youtube.com" target="_blank">YouTube</a> </li>
+        <li>Using <a href="https://www.onlinevideoconverter.com/youtube-converter" target="_blank">this</a> website, paste the youtube
             link, make sure mp4 is the selected format, and click start </li>
         <li><b>Do Not Click Download!!!</b></li>
         <li>Right click on the download link once the conversion is done, and paste this link into the sample bank
