@@ -18,6 +18,14 @@ window.addEventListener('load', init, false);
 load_button.addEventListener('click', sampler);
 play_samp_button.addEventListener('click', play_sound);
 
+window.addEventListener("beforeunload", function (e) {
+    let confirmationMessage = 'It looks like you have been editing something. '
+        + 'If you leave before saving, your changes will be lost.';
+
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});
+
 class Sample {
     constructor(url, buffer) {
         this.url = url
@@ -139,7 +147,11 @@ function sampler() {
     const url = url_box.value;
     console.log("Loading URL", url, "into slot", sample_num.value, "of", num_samples);
     let request = new XMLHttpRequest();
-    request.open('GET', url, true);
+    let mod_url = "https://cors-escape.herokuapp.com/" + url;
+    if (url.includes("http"))
+        request.open('GET', mod_url, true);
+    else
+        request.open('GET', url, true);
     request.responseType = 'arraybuffer';
     // Decode asynchronously
     request.onload = function() {

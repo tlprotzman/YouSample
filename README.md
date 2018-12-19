@@ -11,9 +11,9 @@ A YouTube Sampler Machine
     * Might be too much of a stretch
 * Better documentation/help
 * ~~Show currently playing note~~
-* Show warning message on leaving page
-* Sample start/stop time
+* ~~Show warning message on leaving page~~
+* ~~Sample start/stop time~~
 * Make downloading from youtube work
-* Set up defaults correctly
+* ~~Set up defaults correctly~~
 * Triviality of adding filters? 
 * Make it look pretty
